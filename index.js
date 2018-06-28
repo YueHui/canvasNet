@@ -6,6 +6,7 @@ const distance = scriptNode.getAttribute("distance") || 70;
 
 const canvasElement = document.createElement("canvas");
 canvasElement.style.position = 'absolute';
+canvasElement.style.zIndex = -10;
 canvasElement.style.top = 0;
 canvasElement.style.left = 0;
 canvasElement.height = canvasHeight;
