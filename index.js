@@ -1,14 +1,17 @@
-let canvasWidth = window.innerWidth;
-let canvasHeight = window.innerHeight;
+const canvasWidth = window.innerWidth;
+const canvasHeight = window.innerHeight;
+const scriptNode = document.getElementById("canvasNet");
+const count = scriptNode.getAttribute("count") || 100;
+const distance = scriptNode.getAttribute("distance") || 70;
 
-let canvasElement = document.createElement("canvas");
+const canvasElement = document.createElement("canvas");
 canvasElement.style.position = 'absolute';
 canvasElement.style.top = 0;
 canvasElement.style.left = 0;
 canvasElement.height = canvasHeight;
 canvasElement.width = canvasWidth;
 
-let ctx = canvasElement.getContext("2d");
+const ctx = canvasElement.getContext("2d");
 
 document.body.appendChild(canvasElement);
 
@@ -36,7 +39,7 @@ Dot.prototype.run = function(){
 
 
 let dotArray = [];
-for(let i = 0;i<500;i++){
+for (let i = 0; i < count;i++){
 	let x = Math.random()*canvasWidth|0;
 	let y = Math.random()*canvasHeight|0;
 	let dot = new Dot(x,y);
@@ -51,9 +54,9 @@ function draw(){
 	clear();
 	dotArray.forEach((item,index)=>{
 		ctx.fillRect(item.x,item.y,1,1);
-		let nearArray = dotArray.filter((dot,dIndex) => dIndex!=index && getDistance(item.x,item.y,dot.x,dot.y)<20);
+		let nearArray = dotArray.filter((dot,dIndex) => dIndex!=index && getDistance(item.x,item.y,dot.x,dot.y)<distance);
 		nearArray.forEach(nearItem=>{
-			let alpha = 1 - getDistance(item.x, item.y, nearItem.x, nearItem.y) / 20;
+			let alpha = 1 - getDistance(item.x, item.y, nearItem.x, nearItem.y) / distance;
 			drawLine(item, nearItem, alpha);
 		})
 	});
